@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
 
-module.exports = nextConfig
+
+module.exports = {
+ 
+  env: {
+    API_PATH: 'http://20.198.73.179:1337/api/jal-jan-pledges',
+  },
+}
