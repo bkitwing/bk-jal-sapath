@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to create searchable select box</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+     <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+    <!-- JS for jQuery -->
+    
+    <style>
+      html * {
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+    </style>
+    
+    <style>
+      .flexRow {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    </style>
+    <style>
+      .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      /* The Close Button */
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #186484;
+        border-radius: 4px;
+      }
+
+      .widthGiver {
+        width: 300px;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        /* margin-left: 3vw; */
+        /* margin-top: 2vh; */
+        /* margin-bottom: 2vh; */
+      }
+
+      .buttonContainer {
+        margin-left: 1vw;
+      }
+
+      .btn-primary,
+      .btn-primary:hover,
+      .btn-primary:active,
+      .btn-primary:visited {
+        background-color: #186484 !important;
+        /* width: 10vw; */
+        /* height: 6vh; */
+      }
+
+      .changeText {
+        color: #186484;
+        margin: 2vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="elementor-widget-container">
+      <form class="elementor-form" method="post" id="waterpledge" name="Contact Form">
+        <div>
+          <div class="flexRow">
+            <div class="widthGiver">
+              <input size="1" type="text" id="form-field-name" class="NameField" placeholder="Name / à¤¨à¤¾à¤®">
+            </div>
+            <div class="widthGiver">
+              <input size="1" type="text"  id="form-field-email" class="NumberField" placeholder="Phone Number / à¤«à¤¼à¥‹à¤¨ à¤¨à¤‚à¤¬à¤°" required="required" aria-required="true">
+            </div>
+          </div>
+          <div class="buttonContainer">
+            <div>
+              <div class="elementor-field-subgroup">
+                <span class="elementor-field-option">
+                  <input type="checkbox" name="form_fields[field_c69fade]" id="toggle" required="required" aria-required="true" onchange="document.getElementById('sendNewSms').disabled = !this.checked;">
+                  <label for="form-field-field_c69fade">I Pledge - à¤®à¥‡à¤‚ à¤¶à¤ªà¤¥ à¤²à¥‡à¤¤à¤¾/à¤²à¥‡à¤¤à¥€ à¤¹à¥ </label>
+                </span>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-lg" onClick="handleSubmit(event)" type="submit" id="sendNewSms" disabled="true">
+                <span>
+                  <span class=" elementor-button-icon"></span>
+                  <span class="elementor-button-text">Submit</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p class="changeText"> Thank you for recognizing my importance as a <b>vital element of life</b> and for pledging to <b>conserve and use me wisely</b>.Together, through small but <b>significant actions, we can create a sustainable future for generations to come.</b>
+              <br>
+              <br> Thank you for your dedication to protecting me as a precious resource. Letâ€™s continue to <b>work together to make this planet a better place to live.</b>
+              <br>
+              <br> à¤œà¥€à¤µà¤¨ à¤•à¥‡ à¤ à¤• à¤®à¤¹à¤¤à¥ à¤µà¤ªà¥‚à¤°à¥ à¤£ à¤¤à¤¤à¥ à¤µ à¤•à¥‡ à¤°à¥‚à¤ª à¤®à¥‡à¤‚ à¤®à¥‡à¤°à¥‡ à¤®à¤¹à¤¤à¥ à¤µ à¤•à¥‹ à¤ªà¤¹à¤šà¤¾à¤¨à¤¨à¥‡ à¤”à¤° <b>à¤®à¥ à¤ à¥‡ à¤¸à¤‚à¤°à¤•à¥ à¤·à¤¿à¤¤ à¤•à¤°à¤¨à¥‡ à¤”à¤° à¤¬à¥ à¤¦à¥ à¤§à¤¿à¤®à¤¾à¤¨à¥€ à¤¸à¥‡ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤°à¤¨à¥‡</b> à¤•à¤¾ à¤¸à¤‚à¤•à¤²à¥ à¤ª à¤²à¥‡à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤  à¤§à¤¨à¥ à¤¯à¤µà¤¾à¤¦à¥¤ à¤¸à¤¾à¤¥ à¤®à¥‡à¤‚, à¤›à¥‹à¤Ÿà¥‡ à¤²à¥‡à¤•à¤¿à¤¨ à¤®à¤¹à¤¤à¥ à¤µà¤ªà¥‚à¤°à¥ à¤£ à¤•à¤¾à¤°à¥ à¤¯à¥‹à¤‚ à¤•à¥‡ à¤®à¤¾à¤§à¥ à¤¯à¤® à¤¸à¥‡, à¤¹à¤® à¤†à¤¨à¥‡ <b>à¤µà¤¾à¤²à¥€ à¤ªà¥€à¤¢à¤¼à¤¿à¤¯à¥‹à¤‚ à¤•à¥‡ à¤²à¤¿à¤  à¤ à¤• à¤¸à¥ à¤¥à¤¾à¤¯à¥€ à¤­à¤µà¤¿à¤·à¥ à¤¯</b> à¤¬à¤¨à¤¾ à¤¸à¤•à¤¤à¥‡ à¤¹à¥ˆà¤‚à¥¤ <br>
+              <br> à¤ à¤• à¤…à¤¨à¤®à¥‹à¤² à¤¸à¤‚à¤¸à¤¾à¤§à¤¨ à¤•à¥‡ à¤°à¥‚à¤ª à¤®à¥‡à¤‚ à¤®à¥‡à¤°à¥€ à¤°à¤•à¥ à¤·à¤¾ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤  <b>à¤†à¤ªà¤•à¥‡ à¤¸à¤®à¤°à¥ à¤ªà¤£ à¤•à¥‡ à¤²à¤¿à¤  à¤§à¤¨à¥ à¤¯à¤µà¤¾à¤¦à¥¤</b> à¤†à¤‡à¤  à¤‡à¤¸ à¤—à¥ à¤°à¤¹ à¤•à¥‹ à¤°à¤¹à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤  à¤ à¤• à¤¬à¥‡à¤¹à¤¤à¤° à¤œà¤—à¤¹ à¤¬à¤¨à¤¾à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤  <b>à¤®à¤¿à¤²à¤•à¤° à¤•à¤¾à¤® à¤•à¤°à¤¨à¤¾ à¤œà¤¾à¤°à¥€ à¤°à¤–à¥‡à¤‚à¥¤</b>
+              <br>
+              <br>
+              <b>Gratefully,</b>
+              <br>
+              <b> Water </b>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- CSS for searching -->
+    <!-- JS for searching -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      // .js-example-basic-single declare this class into your select box
+      $(document).ready(function() {
+        $('.cars-truck').select2();
+      });
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> -->
+   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//www.turnjs.com/lib/turn.min.js"></script>
+    <script>
+      // $(document).ready(function() { $("#selectCenter").select2(); });
+    </script>
+    <script>
+      function showPosition(position) {
+          
+        var fullName = document.getElementsByClassName("NameField")[0].value;
+        var Number = document.getElementsByClassName("NumberField")[0].value;
+        var Latitude = position.coords.latitude;
+        var Longitude = position.coords.longitude;
+        var area;
+        console.log(fullName);
+        console.log(Number);
+        console.log(position);
+        var YOUR_ACCESS_TOKEN = "bdc_a1c696e0b7e544209330e2d3e91e2008";
+        if (Latitude + Longitude != 0) {
+          var FinalUrl = "https://api-bdc.net/data/reverse-geocode?latitude=" + Latitude + "&longitude=" + Longitude + "&localityLanguage=en&key=" + YOUR_ACCESS_TOKEN;
+          fetch(FinalUrl).then(result => result.json()).then(featureCollection => {
+            console.log(featureCollection);
+            const data = {
+              Name: fullName,
+              PhoneNumber: Number,
+              City: featureCollection.city,
+              State: featureCollection.countryName
+            }
+            console.log(data);
+            var url = "https://webapp.brahmakumaris.com/api/water-pledges";
+            const submitSuccess = document.querySelector('.submit-success')
+            const submitError = document.querySelector('.submit-error')
+            axios.post(url, {
+              "data": data
+            }).then(response => {
+              var modal = document.getElementById("myModal");
+              modal.style.display = "block";
+              var span = document.getElementsByClassName("close")[0];
+              console.log("Success")
+              span.onclick = function() {
+                modal.style.display = "none";
+              }
+            }).catch((error) => {
+              var modal = document.getElementById("myModal");
+              modal.style.display = "block";
+              var span = document.getElementsByClassName("close")[0];
+              console.log(error)
+              span.onclick = function() {
+                modal.style.display = "none";
+              }
+            });
+          });
+        }
+      }
+      async function handleSubmit(event) {
+        // Stop the form from submitting and refreshing the page.
+        console.log("Submit")
+        console.log(event);
+        event.preventDefault()
+        if (navigator.geolocation) {
+          await navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          console.log("Location not supported");
+        }
+      }
+      $('#toggle').click(function() {
+        //check if checkbox is checked
+        if ($(this).is(':checked')) {
+          $('#sendNewSms').removeAttr('disabled'); //enable input
+        } else {
+          $('#sendNewSms').attr('disabled', true); //disable input
+        }
+      });
+    </script>
+    <script>
+      // Get the modal
+      // Get the button that opens the modal
+      var btn = document.getElementById("sendNewSms");
+      // Get the < span > element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      var modal = document.getElementById("myModal");
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+ 
+</html>
